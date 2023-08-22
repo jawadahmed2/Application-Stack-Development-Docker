@@ -13,11 +13,11 @@ Develop a full-stack application using Docker, Nginx, Postgres, MongoDB, Redis, 
 
 ### 2. Node
  	The following Commands are used to configure and run Node 
-		```WORKDIR /app```
- 		```Copy package.json and package-lock.json to the working directory```
-		```COPY package*.json ./```
-		```RUN npm install```
-    		```RUN npm install express```
+	```WORKDIR /app```
+ 	```Copy package.json and package-lock.json to the working directory```
+	```COPY package*.json ./```
+	```RUN npm install```
+    	```RUN npm install express```
 
 ### 3. Vue.js
 	Vue.js project was made using the following commands
