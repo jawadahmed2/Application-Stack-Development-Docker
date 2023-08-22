@@ -1,0 +1,52 @@
+version: '3'
+services:
+  all-servers:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: all-servers
+    restart: always
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017
+    networks:
+      - custom_network
+    depends_on:
+      - mongodb
+      - redis
+      - custom-postgres
+
+  mongodb:
+    build:
+      context: ./nodeMongo/MongoDocker
+      dockerfile: Dockerfile
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - custom_network
+
+  custom-postgres:
+    build:
+      context: ./laravel/postgre
+      dockerfile: Dockerfile
+    container_name: custom-postgres
+    restart: always
+    networks:
+      - custom_network
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    networks:
+      - custom_network
+
+networks:
+  custom_network:
+
+volumes:
+  mongodb-data:
