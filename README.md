@@ -84,15 +84,3 @@ docker-compose.yml file consists of configuration for
     container_name: redis
     restart: always
 
-## Nginx Server configurations
-Laravel Project is running on default '/' path
-pyhton project is running on '/python'
-node project is running on '/node'
-Vue.js project is running on '/vue'
-
-Nginx configuration is done using:
-		location /"route" {
-			proxy_pass http://localhost:8080/;  # Assuming the project runs on port 8080
-			proxy_set_header Host $host;
-		    }
-
