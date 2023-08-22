@@ -6,7 +6,7 @@ Develop a full-stack application using Docker, Nginx, Postgres, MongoDB, Redis, 
 ### 1. Python
 	Following are the commands used
 	```# First install the libraries of python3 and flask```
-  	```RUN pip install flask```
+  ```RUN pip install flask```
 	```COPY app.py /app/app.py```
 	```COPY templates /app/templates```
 	
