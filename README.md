@@ -177,4 +177,9 @@ service:
         sudo docker-compose build #It is used to build the image
         sudo docker-compose up #It is used to up the image and run the container
     ```
-  - Following is the output of the above application in the browser
+  - Following are the IP used to see the result in the browser
+     - 127.0.0.1:500  #default nginx
+     - 127.0.0.1:500/python #python server
+     - 127.0.0.1:500/node   #node server
+     - 127.0.0.1:500/php    #laravel server
+     - 127.0.0.1:500/vueapp #vuejs server
