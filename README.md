@@ -48,7 +48,7 @@
   ```
 
 ### Entrypoint: 
-    # Create the entrypoint in order to run the different servers in background
+    # Create the entrypoint in order to run the different servers in the background
    ```bash
       # Set the entrypoint script
 	  COPY entrypoint.sh /app/entrypoint.sh
@@ -62,39 +62,58 @@
 ### 1. All Servers Container
    - all-apps are configured using the following commands in yaml:
   ```yaml
- all-apps:
+service:
+  all-apps:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: all-apps
     restart: always
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017
+    networks:
+      - custom_network
+    depends_on:
+      - mongodb
+      - redis
+      - custom-postgres
   ```
 ### 2. Mongodb container
  - Mongo is configured using the following commands in docker compose file:
  ```yaml
- all-apps:
+ mongodb:
     build:
-      context: ./mongodocker
+      context: ./nodeMongo/MongoDocker
       dockerfile: Dockerfile
     container_name: mongodb
     restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - custom_network
    ```
 ### 3. Postgresql container
    - PostgreSQL is configured using the following commands:
   ```yaml  
-  all-apps:
+ custom-postgres:
     build:
-      context: ./postgreSql
+      context: ./laravel/postgre
       dockerfile: Dockerfile
-    container_name: postgreSql
+    container_name: custom-postgres
     restart: always
+    networks:
+      - custom_network
    ```
 ### 4. Redis container
-	Redis is configured using the following commands:
-  all-apps:
-    build:
-      context: ./redis
-      dockerfile: Dockerfile
+  - Redis is configured using the following commands:
+```yaml
+  redis:
+    image: redis:latest
     container_name: redis
     restart: always
-
+    networks:
+      - custom_network
+```
