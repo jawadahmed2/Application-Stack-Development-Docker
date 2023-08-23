@@ -164,4 +164,11 @@ service:
         proxy_pass http://localhost:8080/;  # Assuming the vue app runs on port 8080
         proxy_set_header Host $host;
     }
+
+    # Or we can also configure the vueapp using alias
+     location /vue {
+        alias /path/to/your/vue-app/dist;  # Replace with the actual path to your Vue.js app's build directory
+        try_files $uri $uri/ /index.html;
+    }
     ```
+    
