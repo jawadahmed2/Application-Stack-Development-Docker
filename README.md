@@ -1,40 +1,50 @@
 # Application-Stack-Development-Docker
-Develop a full-stack application using Docker, Nginx, Postgres, MongoDB, Redis, and Python.
+- Develop a full-stack application using Docker, Nginx, Postgres, MongoDB, Redis, and Python.
 
-### Here we use the ubuntu:20.04 image
+### Here I used the ubuntu:20.04 image as the base image
 
 ### 1. Python
-	Following are the commands used
-	```# First install the libraries of python3 and flask```
-  ```RUN pip install flask```
-	```COPY app.py /app/app.py```
-	```COPY templates /app/templates```
+	Following are the commands used to run the Python server
+	
+   ```python
+     # First install the libraries of python3 and flask
+      RUN pip install flask
+      COPY app.py /app/app.py
+      COPY templates /app/templates
+   ```
 	
 
 ### 2. Node
  	The following Commands are used to configure and run Node 
-	```WORKDIR /app```
- 	```Copy package.json and package-lock.json to the working directory```
-	```COPY package*.json ./```
-	```RUN npm install```
-    	```RUN npm install express```
+   ```bash
+       WORKDIR /app
+ 	   Copy package.json and package-lock.json to the working directory
+	   COPY package*.json ./
+	   RUN npm install
+       RUN npm install express
+   ```
 
 ### 3. Vue.js
-	Vue.js project was made using the following commands
-		npm install -g vue-cli
-		vue init webpack my-vue-project
-		cd my-vue-project
+	Following Commands are used to configure the Vue Js project
+  ```javascript		
+      npm install -g vue-cli
+		vue init webpack vue-project
+		cd vue-project
 		npm install
 		npm run dev
-	and it was configured in the Dockerfile using
-	```Node project is configured in Dockerfile using the following commands.
-	```COPY my-vue-project /app/my-vue-project
+	  and it was configured in the Dockerfile using
+	  Node project is configured in Dockerfile using the following commands.
+	  COPY vue-project /app/vue-project 
+   ```
+
 ### 4. Laravel
-	```RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-	```# Configure PHP-FPM
-	```RUN sed -i 's/;clear_env = no/clear_env = no/' /etc/php/7.4/fpm/pool.d/www.conf
-	```# Create Laravel project directory
-	```RUN composer create-project --prefer-dist laravel/laravel /var/www/laravel
+ ```bash
+       RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin -- 
+       filename=composer
+	   # Configure PHP-FPM
+       RUN sed -i 's/;clear_env = no/clear_env = no/' /etc/php/7.4/fpm/pool.d/www.conf
+	   # Create Laravel project directory
+	   RUN composer create-project --prefer-dist laravel/laravel /var/www/laravel
 	
 ### The entrypoint of the Dockerfile is defined using: 
 	```# Set the entrypoint script
