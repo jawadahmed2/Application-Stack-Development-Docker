@@ -1,30 +1,21 @@
-# vue-project
+# Vue Project Build And Running
 
-> A Vue.js project
 
-## Build Setup
+## Configure and build the vue js
 
-``` bash
-# install dependencies
-npm install
+``` Bash
+# First install all the required dependencies
 
-# serve with hot reload at localhost:8080
+npm install -g vue-cli
+
+# Initialize the project
+vue init webpack vue-project
+
+
+# serve with hot reload at localhost:8080 default port
 npm run dev
 
-# build for production with minification
+# Run build production
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
