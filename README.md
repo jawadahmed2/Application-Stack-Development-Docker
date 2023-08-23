@@ -117,3 +117,51 @@ service:
     networks:
       - custom_network
 ```
+## Nginx Configuration for Different Paths:
+ -  I configured Nginx to proxy different applications running on different paths. 
+    - Laravel: /php
+    ```yaml
+    root /var/www/laravel/public;
+
+    index index.php index.html index.htm;
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }      
+    ```
+    - Python: /python
+    ```yaml
+    # Proxy configuration for Python app
+    location /python {
+        proxy_pass http://all-apps:5000/;  # Assuming the Python app runs on port 5000
+        proxy_set_header Host $host;
+    }
+     ```
+    - Node.js: /node
+    ```yaml
+    # Proxy configuration for Node.js app
+    location /node {
+        proxy_pass http://all-apps:3000/;  # Assuming the Node.js app runs on port 3000
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+    ```
+    - Vue.js: /vueapp
+    ```yaml
+    # Serve the Vue.js project
+    location /vue {
+        proxy_pass http://localhost:8080/;  # Assuming the vue app runs on port 8080
+        proxy_set_header Host $host;
+    }
+    ```
