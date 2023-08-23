@@ -16,7 +16,7 @@
 
 ### 2. Node
  	The following Commands are used to configure and run Node 
-   ```bash
+   ```javascript
        WORKDIR /app
  	   Copy package.json and package-lock.json to the working directory
 	   COPY package*.json ./
@@ -37,36 +37,39 @@
 	  COPY vue-project /app/vue-project 
    ```
 
-### 4. Laravel
+### 4. PHP Laravel
  ```bash
-       RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin -- 
-       filename=composer
-	   # Configure PHP-FPM
-       RUN sed -i 's/;clear_env = no/clear_env = no/' /etc/php/7.4/fpm/pool.d/www.conf
-	   # Create Laravel project directory
-	   RUN composer create-project --prefer-dist laravel/laravel /var/www/laravel
-	
-### The entrypoint of the Dockerfile is defined using: 
-	```# Set the entrypoint script
-	```COPY entrypoint.sh /app/entrypoint.sh
-	```RUN chmod +x /app/entrypoint.sh
-	```# Run the entrypoint script
-	```ENTRYPOINT ["/app/entrypoint.sh"]
-	
-	
-## docker-compose.yml
+    RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin -- 
+    filename=composer
+	# Configure PHP-FPM
+    RUN sed -i 's/;clear_env = no/clear_env = no/' /etc/php/7.4/fpm/pool.d/www.conf
+	# Create Laravel project directory
+	RUN composer create-project --prefer-dist laravel/laravel /var/www/laravel
+  ```
 
-docker-compose.yml file consists of configuration for
-### 1. all-apps container
-	all-apps is configured using the following commands
-	services:
-  all-apps:
+### Entrypoint: 
+    # Create the entrypoint in order to run the different servers in background
+   ```bash
+      # Set the entrypoint script
+	  COPY entrypoint.sh /app/entrypoint.sh
+	  RUN chmod +x /app/entrypoint.sh
+	  # Run the entrypoint script
+	  ENTRYPOINT ["/app/entrypoint.sh"]
+   ```
+	
+## Docker Compose File
+   ### docker-compose.yml file contains the below configuration for Dockerfile and other databases
+### 1. All Servers Container
+   - all-apps is configured using the following commands in yaml:
+  ```yaml
+ all-apps:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: mongo
+    container_name: all-apps
     restart: always
-### 2. mongo container
+  ```
+### 2. Mongo container
 	Mongo is configured using the following commands
 	services:
   all-apps:
