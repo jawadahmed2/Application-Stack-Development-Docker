@@ -60,7 +60,7 @@
 ## Docker Compose File
    ### docker-compose.yml file contains the below configuration for Dockerfile and other databases
 ### 1. All Servers Container
-   - all-apps is configured using the following commands in yaml:
+   - all-apps are configured using the following commands in yaml:
   ```yaml
  all-apps:
     build:
@@ -69,27 +69,28 @@
     container_name: all-apps
     restart: always
   ```
-### 2. Mongo container
-	Mongo is configured using the following commands
-	services:
-  all-apps:
+### 2. Mongodb container
+ - Mongo is configured using the following commands in docker compose file:
+ ```yaml
+ all-apps:
     build:
       context: ./mongodocker
       dockerfile: Dockerfile
     container_name: mongodb
     restart: always
-### 3. postgreSql container
-	postgreSql is configured using the following commands
-	services:
+   ```
+### 3. Postgresql container
+   - PostgreSQL is configured using the following commands:
+  ```yaml  
   all-apps:
     build:
       context: ./postgreSql
       dockerfile: Dockerfile
     container_name: postgreSql
     restart: always
-### 4. redis container
-	redis is configured using the following commands
-	services:
+   ```
+### 4. Redis container
+	Redis is configured using the following commands:
   all-apps:
     build:
       context: ./redis
