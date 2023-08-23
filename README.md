@@ -160,15 +160,21 @@ service:
     - Vue.js: /vueapp
     ```yaml
     # Serve the Vue.js project
-    location /vue {
+    location /vueapp {
         proxy_pass http://localhost:8080/;  # Assuming the vue app runs on port 8080
         proxy_set_header Host $host;
     }
 
     # Or we can also configure the vueapp using alias
-     location /vue {
+     location /vueapp {
         alias /path/to/your/vue-app/dist;  # Replace with the actual path to your Vue.js app's build directory
         try_files $uri $uri/ /index.html;
     }
     ```
-    
+## OUTPUT/ Result:
+  - In order to run the above application I run the following commands in the Linux Terminal
+    ```bash
+        sudo docker-compose build #It is used to build the image
+        sudo docker-compose up #It is used to up the image and run the container
+    ```
+  - Following is the output of the above application in the browser
